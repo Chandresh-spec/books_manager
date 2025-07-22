@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Author,Book,Review,Rating
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib import messages
 from .froms import RegisterForm
 # Create your views here.
 

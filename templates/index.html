@@ -7,23 +7,26 @@
     <meta charset="UTF-8">
     <title>Book Manager</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    
 </head>
 <body>
+
 
 <nav class="navbar">
     <div class="logo">📚 Book Manager</div>
     <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#">All Books</a></li>
         <li><a href="#">Add Book</a></li>
         <li><a href="#">Search</a></li>
-        <li><a href="/admin/">Admin</a></li>
         {% if  user.is_authenticated %}
         <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
         <li><a href="{% url 'login' %}">Login</a></li>
         
         {% endif %}
+        <li><a href="#">🛒 Cart</a></li>
+        <li><a href="#">👤 Profile</a></li>
+        
     </ul>
 </nav>
 {% block content  %}
