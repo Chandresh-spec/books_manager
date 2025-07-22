@@ -18,21 +18,20 @@
             <p class="author">👤 {{ book.author.name }}</p>
 
             <p class="rating">
-           ⭐ Average Rating: 
-           {% with book.rating_set.all as ratings %}
-           {% if ratings %}
-           {{ratings|average}}
-           {% else %}
+                Rating:-
+                {% with book.rating_set.all as ratings %}
+                {% if ratings %}
+                {{ratings|average}}/  5
 
-           not ratings
-         
+                {% else %}
+                no Reviews
+                
+                {% endif %}
+                
+                
+                {% endwith %}
 
-           
-           {% endif %}
-           
-           
-           
-           {% endwith %}
+
 
           
             </p>
