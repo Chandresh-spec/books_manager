@@ -1,0 +1,29 @@
+{% load static %}
+{% load custom_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Manager</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">📚 Book Manager</div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">All Books</a></li>
+        <li><a href="#">Add Book</a></li>
+        <li><a href="#">Search</a></li>
+        <li><a href="/admin/">Admin</a></li>
+        <li><a href="#">Login</a></li>
+    </ul>
+</nav>
+{% block content  %}
+
+{% endblock content  %}
+
+</body>
+</html>

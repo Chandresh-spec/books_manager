@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% load custom_tags %}
+
+
+
+{% block content %}
+<h2 style="text-align:center; font-size:2rem; margin-bottom:2rem;">📚 Explore Our Book Collection</h2>
+
+<div class="book-grid">
+    {% for book in item %}
+    <div class="book-card">
+        {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+        {% endif %}
+        <div class="book-info">
+            <h3>{{ book.title }}</h3>
+            <p class="author">👤 {{ book.author.name }}</p>
+
+            <p class="rating">
+           ⭐ Average Rating: 
+           {% with book.rating_set.all as ratings %}
+           {% if ratings %}
+           {{ratings|average}}
+           {% else %}
+
+           not ratings
+         
+
+           
+           {% endif %}
+           
+           
+           
+           {% endwith %}
+
+          
+            </p>
+            
+          
+            
+            
+            
+
+            <details class="reviews">
+                <summary>💬 Reviews</summary>
+                {% for r in review %}
+                    {% if r.book.id == book.id %}
+                        <p><strong>{{ r.user.username }}</strong>: {{ r.comment }}</p>
+                    {% endif %}
+                {% endfor %}
+                </details>
+                </div>
+                </div>
+               {% endfor %}
+               </div>
+
+              {% endblock %}
+
+
+
+
