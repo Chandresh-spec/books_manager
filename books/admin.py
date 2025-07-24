@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author,Book,Review,Rating
+from .models import Author,Book,Review,Rating,Profile
 # Register your models here.
 class AuthorAdmin(admin.ModelAdmin):
     list_display=('name',)
@@ -20,7 +20,11 @@ class RatingAdmin(admin.ModelAdmin):
     list_display=('stars',)
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    list_display=('image2',)
+
 admin.site.register(Author,AuthorAdmin)
 admin.site.register(Book,BookAdmin)
 admin.site.register(Review,ReviewAdmin)
 admin.site.register(Rating,RatingAdmin)
+admin.site.register(Profile,ProfileAdmin)
