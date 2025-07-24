@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Author,Book,Review,Rating
+from .models import Author,Book,Review,Rating,Profile
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .froms import RegisterForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def helo(request):
@@ -65,6 +66,13 @@ def login_view(request):
     else:
         form=AuthenticationForm()
         return render(request,'login.html',{'form':form})
+    
+
+@login_required
+def profile_view(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    return render(request, 'profile.html', {'profile': profile})
+
 
 
 

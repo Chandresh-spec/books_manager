@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'books',
+    'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +126,7 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
+LOGIN_URL = '/books/login/'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 

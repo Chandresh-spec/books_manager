@@ -18,7 +18,7 @@ class Author(models.Model):
 class Book(models.Model):
    title=models.CharField(max_length=150)
    author=models.ForeignKey(Author,on_delete=models.CASCADE)
-   image=models.ImageField(upload_to='media/',null=True,blank=True)
+   image=models.ImageField(upload_to='image/',null=True,blank=True,default='default.jpg')
 
    def __str__(self):
        return f"{self.title}"
@@ -61,8 +61,6 @@ class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     saved_on = models.DateTimeField(auto_now_add=True)
-
-
 
 
 
