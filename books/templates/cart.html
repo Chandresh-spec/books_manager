@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🛒 My Cart</title>
+  <link rel="stylesheet" href="{% static 'cart.css' %}">
+</head>
+<body>
+  <div class="cart-container">
+    <h1>🛒 My Cart</h1>
+    <div class="cart-body">
+      <div class="cart-left">
+        {% for item in cart_items %}
+        <div class="cart-item">
+          <img src="{{ item.book.image.url }}" alt="{{ item.book.title }}">
+          <div class="item-details">
+            <h2>{{ item.book.title }}</h2>
+            <p>{{ item.book.author }}</p>
+            <div class="quantity-control">
+              <form method="POST" action="{% url 'update_cart' item.id %}">
+                {% csrf_token %}
+                <button name="action" value="decrease">−</button>
+                <input type="text" value="{{ item.quantity }}" readonly>
+                <button name="action" value="increase">+</button>
+              </form>
+            </div>
+          </div>
+          <div class="price-details">
+            <p>₹{{ item.book.price }}</p>
+            <form method="POST" action="{% url 'remove_from_cart' item.id %}">
+              {% csrf_token %}
+              <button class="remove-btn">Remove</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-summary">
+        <h3>Cart Summary</h3>
+        <p>Total Items: {{ total_items }}</p>
+        <p>Total Price: ₹{{ total_price }}</p>
+        <button class="checkout-btn">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

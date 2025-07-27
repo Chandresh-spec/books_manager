@@ -18,7 +18,7 @@ class Author(models.Model):
 class Book(models.Model):
    title=models.CharField(max_length=150)
    author=models.ForeignKey(Author,on_delete=models.CASCADE)
-   image=models.ImageField(upload_to='image/',default='default.jpg')
+   image=models.ImageField(upload_to='image/')
 
    def __str__(self):
        return f"{self.title}"
@@ -32,7 +32,7 @@ class Book(models.Model):
 class Profile(models.Model):
    user=models.OneToOneField(User,on_delete=models.CASCADE)
    bio=models.TextField()
-   image2=models.ImageField(upload_to='photos/',default='default.jpg',null=True)
+   image2=models.ImageField(upload_to='photos/',default='photos/default.jpg',null=True)
 
    
 
@@ -66,9 +66,18 @@ class Favorite(models.Model):
 
 
 
+class Cart(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    created_at=models.DateTimeField(auto_now_add=True)
 
 
 
+
+class CartItem(models.Model):
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    book=models.ForeignKey(Book,on_delete=models.CASCADE)
+
+    quantity=models.PositiveIntegerField(default=1)
 
 
 

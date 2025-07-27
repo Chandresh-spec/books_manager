@@ -25,6 +25,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Author,AuthorAdmin)
 admin.site.register(Book,BookAdmin)
+
 admin.site.register(Review,ReviewAdmin)
 admin.site.register(Rating,RatingAdmin)
 admin.site.register(Profile,ProfileAdmin)
