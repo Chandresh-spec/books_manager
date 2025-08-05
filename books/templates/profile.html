@@ -11,10 +11,11 @@
     <div class="profile-container">
    <div class="profile-card">
        <img src="{{request.user.profile.image2.url}}" alt="Profile Photo" class="profile-image">
-       <h2>{{ request.user.username }}</h2>
-       <p><strong>Email:</strong> {{ request.user.email }}</p>
+       <h2>{{ request.user.profile.profile_name }}</h2>
+       <p><strong>email:</strong> {{ request.user.profile.email }}</p>
        <p><strong>Bio:</strong> {{ request.user.profile.bio }}</p>
    </div>
+   <a href={% url 'edit_profile' %}>edit profile</a>
 </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
-from django.shortcuts import render,redirect
-from .models import Author,Book,Review,Rating,Profile
+from django.shortcuts import render,redirect,get_object_or_404
+from .models import Author,Book,Review,Rating,Profile,CartItem,Comment
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .froms import RegisterForm
+from .forms import RegisterForm,EditProfile,CommentForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -75,5 +75,54 @@ def profile_view(request):
 
 
 
+def Cart_view(request):
+    item=CartItem.objects.all()
+    return render(request,'cart.html',{'item':item})
 
+
+
+
+def profile_edit(request):
+    profile,created=Profile.objects.get_or_create(user=request.user)
+    if request.method=='POST':
+        form=EditProfile(request.POST, request.FILES,instance=profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile') 
+        
+        else:
+            return render(request,'profile_edit.html',{'form':form})
     
+    else:
+        form=EditProfile(instance=profile)
+        return render(request,'profile_edit.html',{'form':form})
+
+
+
+
+
+def course_detail(request, pk):
+    course = get_object_or_404(Book, pk=pk)
+    comments = course.comments.filter(parent__isnull=True)  # Only top-level comments
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        parent_id = request.POST.get('parent_id')
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.course = course
+            comment.user = request.user
+            if parent_id:
+                parent_comment = Comment.objects.get(id=parent_id)
+                comment.parent = parent_comment
+            comment.save()
+            return redirect('course_detail', pk=pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'course_detail.html', {
+        'course': course,
+        'comments': comments,
+        'form': form,
+    })
